@@ -5,9 +5,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var roomRouter = require('./routes/rooms');
 
 var app = express();
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(3040);
+
+//socket io 
+io.on('connection', function(socket){
+  console.log("connection established.");
+  socket.on('disconnect', function(){ });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/room', roomRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

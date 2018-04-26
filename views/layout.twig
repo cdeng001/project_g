@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    {% block stylesheets %}{% endblock %}
   </head>
   <body>
     {% block body %}{% endblock %}
+    {% block scripts %}{% endblock %}
   </body>
 </html>

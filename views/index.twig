@@ -1,6 +1,14 @@
 {% extends 'layout.twig' %}
 
+{% block stylesheets %}
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+{% endblock %}
+
 {% block body %}
   <h1>{{title}}</h1>
   <p>Welcome to {{title}}</p>
+  <div>
+    <a>Join</a>
+    <a>Create</a>
+  </div>
 {% endblock %}
