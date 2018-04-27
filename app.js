@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var roomRouter = require('./routes/rooms');
 
 var app = express();
 
@@ -14,10 +13,26 @@ var io = require('socket.io')(server);
 
 server.listen(3040);
 
+server.lastPlayderID = 0;
+
+var RoomController = require('./roomController');
+
 //socket io 
 io.on('connection', function(socket){
-  console.log("connection established.");
-  socket.on('disconnect', function(){ });
+  
+  console.log('connection with ID '+socket.id);
+  
+  socket.on('join game', function(name){
+
+    socket.player = {
+      id: server.lastPlayderID++,
+      name: name,
+      room: null,
+      character: null,
+    };
+
+  });
+
 });
 
 // view engine setup
@@ -31,7 +46,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/room', roomRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
