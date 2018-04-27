@@ -11,7 +11,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(3040);
+server.listen(3041);
 
 server.lastPlayderID = 0;
 
