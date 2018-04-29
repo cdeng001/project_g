@@ -6,11 +6,20 @@
 
 {% block body %}
   <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
+  <p>Welcome {{name}}!</p>
 {% endblock %}
 
 {% block scripts %}
   <script src="/socket.io/socket.io.js"></script>
   <script src="/javascripts/phaser.js"></script>
   <script src="/javascripts/game/game.js"></script>
+  <script>
+    var Client = {};
+    Client.socket = io.connect();
+    Client.socket.emit('join game', {
+      name : '{{name}}',
+      join_type : '{{join_type}}',
+      room : '{{room}}',
+    });
+  </script>
 {% endblock %}

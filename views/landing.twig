@@ -1,0 +1,36 @@
+{% extends 'layout.twig' %}
+
+{% block stylesheets %}
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/landing.css' />
+{% endblock %}
+
+{% block body %}
+  <h1>{{title}}</h1>
+  <p>Welcome to {{title}}</p>
+  <hr>
+  <form action="/game" method="POST">
+    <br>
+    <div class="form-player-name-wrapper form-section">
+        <label for="name">Enter name: </label>
+        <input id="name" type="text" name="name" placeholder="Enter Player name.">
+    </div>
+    <br>
+    <div class="form-room-options-wrapper form-section">
+        <div class="form-room-option">
+            <p>To join a room, enter a room code here.</p>
+            <label for="room">Enter room id: </label>
+            <input id="room" type="text" name="room" placeholder="Enter Room id.">
+            <button type="submit" name="join_type" value="id">Join Room</button>
+        </div>
+        <div class="form-room-option">
+            <p>Join a random room!</p>
+            <button type="submit" name="join_type" value="random">Join Random Room</button>
+        </div>
+        <div class="form-room-option">
+            <p>Create a new room.</p>
+            <button type="submit" name="join_type" value="create">Create Room</button>
+        </div>
+    </div>
+  </form>
+{% endblock %}
