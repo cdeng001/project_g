@@ -50,6 +50,13 @@ io.on('connection', function(socket){
         character: null,
       };
     }
+    else{
+      socket.emit('invalid room', {
+        err: 'Could not find a room, please try again.'
+      })
+    }
+
+    //socket.emit('init game', {});
     
 
   });

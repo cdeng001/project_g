@@ -7,6 +7,10 @@
 {% block body %}
   <h1>{{title}}</h1>
   <p>Welcome {{name}}!</p>
+  <div id='error-wrapper' hidden>
+    <p id='error-msg'></p>
+    <a href='/'>Back</a>
+  </div>
 {% endblock %}
 
 {% block scripts %}
@@ -14,12 +18,25 @@
   <script src="/javascripts/phaser.js"></script>
   <script src="/javascripts/game/game.js"></script>
   <script>
-    var Client = {};
+
+    Client = {};
+    gameCtrl =  null;
+
     Client.socket = io.connect();
     Client.socket.emit('join game', {
-      name : '{{name}}',
-      join_type : '{{join_type}}',
-      room : '{{room}}',
+        name : '{{name}}',
+        join_type : '{{join_type}}',
+        room : '{{room}}',
     });
+
+    Client.socket.on('invalid room', function(data){
+        document.getElementById('error-wrapper').removeAttribute('hidden');
+        document.getElementById('error-msg').textContent = 'Error: ' + data.err;
+    });
+
+    Client.socket.on('init game', function(data){
+        gameCtrl = new Game();
+    });
+    
   </script>
 {% endblock %}
