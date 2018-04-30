@@ -19,8 +19,9 @@
   <script src="/javascripts/game/game.js"></script>
   <script>
 
-    Client = {};
-    gameCtrl =  null;
+    Client = {
+      eventQueue: [],
+    };
 
     Client.socket = io.connect();
     Client.socket.emit('join game', {
@@ -35,7 +36,7 @@
     });
 
     Client.socket.on('init game', function(data){
-        gameCtrl = new Game();
+        Client.game = new Game();
     });
     
   </script>
