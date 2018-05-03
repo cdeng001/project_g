@@ -11,7 +11,11 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(3040);
+server.listen(3041);
+
+server.lastPlayderID = 0;
+
+var RoomController = require('./roomController');
 
 server.lastPlayderID = 0;
 
@@ -22,14 +26,42 @@ io.on('connection', function(socket){
   
   console.log('connection with ID '+socket.id);
   
-  socket.on('join game', function(name){
+  socket.on('join game', function(data){
 
-    socket.player = {
-      id: server.lastPlayderID++,
-      name: name,
-      room: null,
-      character: null,
-    };
+    console.log(data);
+
+    var room = null;
+
+    switch(data.join_type){
+      case 'id':
+        break;
+      case 'random':
+        break;
+      case 'create':
+        break;
+      default:
+        console.log('unknown join type.')
+        break;
+    }
+
+    if(room !== null){
+      //found valid join type and got instance of room
+
+      socket.player = {
+        id: server.lastPlayderID++,
+        name: data.name,
+        room: room,
+        character: null,
+      };
+    }
+    else{
+      socket.emit('invalid room', {
+        err: 'Could not find a room, please try again.'
+      })
+    }
+
+    //socket.emit('init game', {});
+    
 
   });
 

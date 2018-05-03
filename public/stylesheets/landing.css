@@ -1,0 +1,22 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto;
+}
+
+form .form-section{
+    flex: 0 1 auto;
+}
+
+form .form-room-options-wrapper{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+form .form-room-options-wrapper .form-room-option {
+    flex: 0 1 auto;
+    margin-right: 50px;
+}
