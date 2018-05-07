@@ -36,6 +36,7 @@
     });
 
     Client.socket.on('init game', function(data){
+        console.log(data);
         Client.game = new Game();
     });
     

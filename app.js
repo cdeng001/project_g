@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var RoomController = require('./roomController');
 var indexRouter = require('./routes/index');
 
 var app = express();
@@ -14,8 +14,8 @@ var io = require('socket.io')(server);
 server.listen(3041);
 
 server.lastPlayderID = 0;
+server.roomController = new RoomController();
 
-var RoomController = require('./roomController');
 
 //socket io 
 io.on('connection', function(socket){
@@ -23,8 +23,6 @@ io.on('connection', function(socket){
   console.log('connection with ID '+socket.id);
   
   socket.on('join game', function(data){
-
-    console.log(data);
 
     var room = null;
 
@@ -34,6 +32,7 @@ io.on('connection', function(socket){
       case 'random':
         break;
       case 'create':
+        room = server.roomController.createRoom(socket.id);
         break;
       default:
         console.log('unknown join type.')
@@ -49,15 +48,16 @@ io.on('connection', function(socket){
         room: room,
         character: null,
       };
+
+      socket.emit('init game', {
+        room: server.roomController.getRoomById(socket.player.room),
+      });
     }
     else{
       socket.emit('invalid room', {
         err: 'Could not find a room, please try again.'
       })
     }
-
-    //socket.emit('init game', {});
-    
 
   });
 

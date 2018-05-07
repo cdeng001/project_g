@@ -1,15 +1,16 @@
 class Room {
 
-    static generateUniqueId(existingIds){
-        var id;
-        do{
-            id = Math.random().toString(36).substr(2, 16);
-        } while (existingIds.includes(id));
-        return id;
-    }
-
-    constructor(existingIds=[]) {
-        this.room_id = Room.generateUniqueId(existingIds);
+    constructor(id, host) {
+        this.room_id = id;
+        this.host = host;
+        this.capacity = 5;
+        this.max_capacity = 5;
+        this.players = [host];
+        this.closed = false;
+        this.active = false;
+        
+        this.mode = null;               //boss, pvp
+        this.map = null;                //map_id
     }
 }
 
