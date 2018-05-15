@@ -41,8 +41,17 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":3,
          "firstgid":1,
-         "source":"..\/..\/..\/..\/..\/..\/Pictures\/gm_arena\/map\/lab_tiles.tsx"
+         "image":"..\/..\/..\/..\/..\/RPGAssets\/lab_tileset_cut.png",
+         "imageheight":96,
+         "imagewidth":96,
+         "margin":0,
+         "name":"lab_tiles",
+         "spacing":0,
+         "tilecount":9,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
