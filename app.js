@@ -17,6 +17,10 @@ server.lastPlayderID = 0;
 server.roomController = new RoomController();
 
 
+server.lastPlayderID = 0;
+
+var RoomController = require('./roomController');
+
 //socket io 
 io.on('connection', function(socket){
   
